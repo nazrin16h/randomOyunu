@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 70vh;
+            background-color: #667cc4;
+            font-family: Arial, sans-serif;
+        }
+
+        div{
+            display: flex;
+            flex-direction: column;
+        }
+        input {
+            margin: 10px 0;
+            padding: 5px 0;
+            width: 200px;
+        }
+
+        button {
+            background-color: #1a4879;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 15px;
+            width: 200px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="teyin" style="display:none; flex-direction: column;">
+        <h2>Random ededi tap</h2>
+        <input id="min" type="number" placeholder="min ededi daxil edin">
+        <input id="max" type="number" placeholder="max ededi daxil edin">
+        <input id="cehdInp" placeholder="cehd sayini qeyd edin" type="number">
+        <button onclick="tap()">Ededi teyin et</button>
+    </div>
+    <div id="game" style="display: flex; flex-direction: column;">
+        <h1>Oyuna Basla</h1>
+        <h4 id="cehdSec">Ched sayiniz:</h4>
+        <input id="texminEt" placeholder="texmini daxil et" type="number" />
+        <button onclick="yoxla()">yoxla</button>
+        <span id="netice" style="display: flex;flex-direction: column;"></span><br>
+    </div>
+
+
+    <script>
+        const teyin = document.getElementById('teyin')
+        const min = document.getElementById('min')
+        const max = document.getElementById('max')
+        const game = document.getElementById('game')
+        const cehdSec = document.getElementById('cehdSec')
+        const texminEt = document.getElementById('texminEt')
+        const cehdInp = document.getElementById('cehdInp')
+        const netice = document.getElementById('netice')
+
+        game.style.display = 'none'
+        teyin.style.display = 'flex'
+
+        let cehd
+
+        function getRandNum(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+        let randNum
+
+        function printCehd(){
+            cehdSec.innerHTML=`cehd sayiniz:${cehd}`
+        }
+        function tap(){
+            teyin.style.display='none'
+            game.style.display='flex'
+            randNum=getRandNum(+min.value,+max.value);
+            cehd=cehdInp.value
+            printCehd()
+            console.log(randNum);
+        }
+        function reset(){
+            teyin.style.display='flex'
+            game.style.display='none'
+        }
+        function yoxla(){
+            cehd > 0 ? cehd-- : 0 ;
+            printCehd()
+            netice.innerHTML=+texminEt.value !=randNum && cehd == 0 ? 
+            'uduzdunuz <button onclick="reset()" style="background-color:red">restart</button>':
+            +texminEt.value > randNum ? "asagi get":
+            +texminEt.value < randNum ? "yuxari get":
+            'tebriklerrrrrrrrrrrrrrrrrrrr <button onclick="reset()" style="background-color:red">restart</button>'
+            
+            
+        }
+    </script>
+
+</body>
+
+</html>
